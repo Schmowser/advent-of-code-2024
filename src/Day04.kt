@@ -59,11 +59,6 @@ fun main() {
     fun part2(input: List<String>): Int {
         var result = 0
 
-        val regex1 = "M.S".toRegex()
-        val regex2 = "S.M".toRegex()
-        val regex3 = "M.M".toRegex()
-        val regex4 = "S.S".toRegex()
-
         val lineToStartToEnd = mutableListOf<MasData>()
 
        // Horizontal search
@@ -89,7 +84,6 @@ fun main() {
             }) {
                 if (input[str.row + 1][str.startIndex + 1] == 'A') {
                     result += 1
-                    //println("Treffer! $str")
                 }
             }
             println(str)
@@ -100,14 +94,12 @@ fun main() {
 
     // Or read a large test input from the `src/Day01_test.txt` file:
     val testInput = readInput("Day04_test")
-    //check(part1(testInput) == 18)
-    //part1(testInput).println()
-    part2(testInput).println()
-    //check(part2(testInput) == 9)
+    check(part1(testInput) == 18)
+    check(part2(testInput) == 9)
 
     // Read the input from the `src/Day01.txt` file.
     val input = readInput("Day04")
-    //part1(input).println()
+    part1(input).println()
     part2(input).println()
 }
 
@@ -130,22 +122,6 @@ enum class MasType {
             SM -> SM
             MM -> SS
             SS -> MM
-        }
-    }
-}
-
-fun parse(a: String): MasType {
-    return if (a.startsWith("M")) {
-        if (a.endsWith("M")) {
-            MasType.MM
-        } else {
-            MasType.MS
-        }
-    } else {
-        if (a.endsWith("M")) {
-            MasType.SS
-        } else {
-            MasType.SS
         }
     }
 }
