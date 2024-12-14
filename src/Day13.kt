@@ -136,11 +136,11 @@ fun main() {
 
     // Or read a large test input from the `src/Day01_test.txt` file:
     val testInput = readInput("Day13_test")
-//    part1(testInput).println()
-//    part2(testInput).toBigDecimal().println()
+    part1(testInput).println()
+    part2(testInput).toBigDecimal().println()
 
     // Read the input from the `src/Day01.txt` file.
     val input = readInput("Day13")
-//    part1(input).println()
+    part1(input).println()
     part2(input).toBigDecimal().println()
 }
