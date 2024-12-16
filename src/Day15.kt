@@ -127,7 +127,7 @@ fun main() {
                 val comboToMove = mutableListOf('@')
                 var comboHead = robot
 
-                if (step == 313) {
+                if (step == 1895) {
                     println("ERROR")
                 }
                 while (comboToMove.isNotEmpty()) {
@@ -160,7 +160,7 @@ fun main() {
                 var movingCombo = mutableListOf(mutableListOf('@'))
                 var comboToMove = (robot.first .. robot.first) to (robot.second .. robot.second)
 
-                if (step == 313) {
+                if (step == 1895) {
                     println("ERROR")
                 }
                 while (true) {
@@ -168,11 +168,12 @@ fun main() {
                         state[comboToMove.first.last + dir.first][it]
                     }
                     when {
-                        nextUp.all { it == '.' } -> {
+                        nextUp.filterIndexed { index: Int, char: Char ->
+                            movingCombo.last()[index] != '.'
+                        }.all { it == '.' } -> {
                             if (dir.first == 1) {
                                 for (i in comboToMove.first.last downTo comboToMove.first.first) {
                                     for (j in comboToMove.second) {
-//                                        if (i - comboToMove.first.first != 0) {
                                         try {
                                             val nextMovingCombo = movingCombo[i - comboToMove.first.first + 1][j - comboToMove.second.first]
                                             if (movingCombo[i - comboToMove.first.first][j - comboToMove.second.first] == '.') {
@@ -218,7 +219,7 @@ fun main() {
                             robot = robot.first + dir.first to robot.second + dir.second
                             break
                         }
-                        nextUp.all { it == '#' } -> {
+                        nextUp.any { it == '#' } -> {
                             break
                         }
                         nextUp.any { it == '[' || it == ']' } -> {
@@ -280,7 +281,13 @@ fun main() {
                                             if (movingCombo.last()[index] != '.') {
                                                 c
                                             } else {
-                                                '.'
+                                                if (c == ']' && index > 0 && nextUp[index - 1] == '[') {
+                                                    ']'
+                                                } else if (c == '[' && index + 1 < nextUp.size && nextUp[index + 1] == ']') {
+                                                    '['
+                                                } else {
+                                                    '.'
+                                                }
                                             }
                                         } else {
                                             '.'
@@ -329,11 +336,13 @@ fun main() {
 //    part2(testInput).println()
 
     val testInput2 = readInput("Day15_test2")
-    //    part1(testInput2).println()
+//        part1(testInput2).println()
 //        part2(testInput2).println()
 
     // Read the input from the `src/Day01.txt` file.
     val input = readInput("Day15")
 //    part1(input).println()
     part2(input).println()
+
+    // 1480407 - too low
 }
